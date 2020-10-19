@@ -5,6 +5,7 @@ import image from "../static/images/image.svg";
 import '../styles/App.css';
 import DropZone from './DropZone';
 import ProgressBar from './ProgressBar';
+import Title from "./Title";
 
 const App = () => {
     const [isError, setIsError] = useState(false);
@@ -15,7 +16,9 @@ const App = () => {
     const [fileLocation, setFileLocation] = useState("");
     const [isCopySuccess, setIsCopySuccess] = useState("");
 
-    const inputEl = useRef(null);
+    const fileRef = useRef(null);
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
 
     useEffect(() => {
         if (selectedFile) {
@@ -24,7 +27,7 @@ const App = () => {
                     resolve(
                         axios({
                             method: "post",
-                            url: process.env.REACT_APP_UPLOAD_API_URL + 'endpoint',
+                            url: process.env.REACT_APP_UPLOAD_API_URL + endpoint,
                             data: data,
                             headers: { "Content-Type": "multipart/form-data" },
                         })
@@ -61,7 +64,7 @@ const App = () => {
                             selectedFile,
                             `${Date.now()}-${selectedFile.name}`
                         );
-                        apiRequest(fileData, '/api/files');
+                        apiRequest(fileData, 'api/files');
                     }
                 } catch (error) {
                     setOnLoad(false);
@@ -100,7 +103,7 @@ const App = () => {
     };
 
     const handleClickToClipboard = (e) => {
-        inputEl.current.select();
+        fileRef.current.select();
         document.execCommand("copy");
         e.target.focus();
         setIsCopySuccess("Copied!");
@@ -108,6 +111,7 @@ const App = () => {
 
     return (
         <div className="app">
+            <Title />
             {onLoad ? (
                 <ProgressBar />
             ) : (
@@ -135,13 +139,30 @@ const App = () => {
                                         <input
                                             type="text"
                                             className="text-url"
-                                            ref={inputEl}
+                                            ref={fileRef}
                                             defaultValue={fileLocation}
                                         />
                                         <button className="btn-copy" onClick={handleClickToClipboard}>
                                             {isCopySuccess === "" ? "Copy" : isCopySuccess}
                                         </button>
                                     </div>
+                                    <div className="container-url">
+                                        <input
+                                            type="text"
+                                            className="text-url"
+                                            ref={emailRef}
+                                        />
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="text"
+                                            className="text-url"
+                                            ref={passwordRef}
+                                        />
+                                    </div>
+                                    <button className="btn-copy" onClick={handleClickToClipboard}>
+                                        {isCopySuccess === "" ? "Send Email" : isCopySuccess}
+                                    </button>
                                 </div>
                             ) : (
                                     <div className="container-dropzone">

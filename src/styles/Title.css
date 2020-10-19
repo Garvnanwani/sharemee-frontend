@@ -1,0 +1,32 @@
+.title-box {
+    margin: auto;
+}
+
+.app-title {
+    font-family: 'Russo One',
+        sans-serif;
+    padding: 1rem;
+    margin: 1rem 3rem;
+}
+
+.heading {
+    font-size: 4rem;
+}
+
+.app-name {
+    font-size: 5rem;
+}
+
+.underline {
+    height: 4px;
+    width: 4rem;
+    background: red;
+}
+
+.sub-heading {
+    font-size: 1.5rem;
+}
+
+.logo {
+    margin: 0 4rem;
+}
